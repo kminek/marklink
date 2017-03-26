@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Marklink;
+namespace Tests\Kminek\Marklink;
 
 use PHPUnit\Framework\TestCase;
 use Kminek\Marklink\Parser;
