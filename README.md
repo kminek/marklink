@@ -27,14 +27,14 @@ Schema rules:
 
 Input:
 
-```
+```markdown
 - [Link A](http://a.sample.com) - Link A description
 - [Link B](http://b.sample.com) - Link B description with [some link](http://somelink.sample.com)
 ```
 
 Output:
 
-```
+```json
 {
     "type": "category",
     "children": [
@@ -58,7 +58,7 @@ Output:
 
 Input:
 
-```
+```markdown
 ## Category A
 
 Category A description
@@ -73,7 +73,7 @@ Category A description
 
 Output:
 
-```
+```json
 {
     "type": "category",
     "children": [
