@@ -22,8 +22,8 @@ class ParserTest extends TestCase
     public function testSimpleExample(): void
     {
         $markdown = <<<MARKDOWN
-- [Link A](http://a.sample.com) - Link A description
-- [Link B](http://b.sample.com) - Link B description with [some link](http://somelink.sample.com)
+- [Link A](http://a.example.com) - Link A description
+- [Link B](http://b.example.com) - Link B description with [link](http://link.example.com)
 MARKDOWN;
         $result = $this->parser->parse($markdown);
         $expected = [
@@ -32,14 +32,14 @@ MARKDOWN;
                 [
                     'type' => 'link',
                     'title' => 'Link A',
-                    'url' => 'http://a.sample.com',
+                    'url' => 'http://a.example.com',
                     'description' => 'Link A description',
                 ],
                 [
                     'type' => 'link',
                     'title' => 'Link B',
-                    'url' => 'http://b.sample.com',
-                    'description' => 'Link B description with <a href="http://somelink.sample.com">some link</a>',
+                    'url' => 'http://b.example.com',
+                    'description' => 'Link B description with <a href="http://link.example.com">link</a>',
                 ],
             ],
         ];
@@ -56,9 +56,9 @@ Category A description
 ### Sub-category A
 
 - Sub-sub-category A
-    - [Link A](http://a.sample.com) - Link A description
-    - [Link B](http://b.sample.com) - Link B description with [some link](http://somelink.sample.com)
-        - [Link C](http://c.sample.com) - Link C description
+    - [Link A](http://a.example.com) - Link A description
+    - [Link B](http://b.example.com) - Link B description with [link](http://link.example.com)
+        - [Link C](http://c.example.com) - Link C description
 MARKDOWN;
         $result = $this->parser->parse($markdown);
         $expected = [
@@ -80,19 +80,19 @@ MARKDOWN;
                                         [
                                             'type' => 'link',
                                             'title' => 'Link A',
-                                            'url' => 'http://a.sample.com',
+                                            'url' => 'http://a.example.com',
                                             'description' => 'Link A description',
                                         ],
                                         [
                                             'type' => 'link',
                                             'title' => 'Link B',
-                                            'url' => 'http://b.sample.com',
-                                            'description' => 'Link B description with <a href="http://somelink.sample.com">some link</a>',
+                                            'url' => 'http://b.example.com',
+                                            'description' => 'Link B description with <a href="http://link.example.com">link</a>',
                                             'children' => [
                                                 [
                                                     'type' => 'link',
                                                     'title' => 'Link C',
-                                                    'url' => 'http://c.sample.com',
+                                                    'url' => 'http://c.example.com',
                                                     'description' => 'Link C description',
                                                 ],
                                             ],
@@ -102,6 +102,47 @@ MARKDOWN;
                             ],
                         ],
                     ],
+                ],
+            ],
+        ];
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testMarkers(): void
+    {
+        $markdown = <<<MARKDOWN
+## Exclude
+
+- [Link A](http://a.example.com) - Link A description
+- [Link B](http://b.example.com) - Link B description with [link](http://link.example.com)
+
+<!-- marklink:start -->
+
+- [Link A](http://a.example.com) - Link A description
+- [Link B](http://b.example.com) - Link B description with [link](http://link.example.com)
+
+<!-- marklink:end -->
+
+## Exclude
+
+- [Link A](http://a.example.com) - Link A description
+- [Link B](http://b.example.com) - Link B description with [link](http://link.example.com)
+MARKDOWN;
+        $result = $this->parser->parse($markdown);
+        $expected = [
+            'type' => 'category',
+            'children' => [
+                [
+                    'type' => 'link',
+                    'title' => 'Link A',
+                    'url' => 'http://a.example.com',
+                    'description' => 'Link A description',
+                ],
+                [
+                    'type' => 'link',
+                    'title' => 'Link B',
+                    'url' => 'http://b.example.com',
+                    'description' => 'Link B description with <a href="http://link.example.com">link</a>',
                 ],
             ],
         ];
