@@ -4,17 +4,16 @@ declare(strict_types=1);
 namespace Kminek\Marklink;
 
 /**
- * Class Parser
+ * Interface ParserInterface
  * @package Kminek\Marklink
  */
-class Parser
+interface ParserInterface
 {
     /**
+     * Parse Markdown string into Marklink array
+     *
      * @param string $markdown
      * @return array
      */
-    public function parse(string $markdown): array
-    {
-        return [];
-    }
+    public function parse(string $markdown): array;
 }

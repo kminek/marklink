@@ -2,12 +2,19 @@
     "name": "kminek/marklink",
     "description": "A simple standard allowing embedding (and parsing) categorized lists of links inside Markdown files.",
     "require": {
+        "php": ">=7.1.0"
+    },
+    "require-dev": {
         "justinrainbow/json-schema": "5.2.*",
         "phpunit/phpunit": "6.0.*"
     },
     "autoload": {
         "psr-4": {
-            "Kminek\\Marklink\\": "src/",
+            "Kminek\\Marklink\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
             "Tests\\Kminek\\Marklink\\": "tests/"
         }
     }

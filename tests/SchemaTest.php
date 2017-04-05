@@ -34,14 +34,14 @@ class SchemaTest extends TestCase
                 [
                     'type' => 'link',
                     'title' => 'Link A',
-                    'url' => 'http://a.sample.com',
+                    'url' => 'http://a.example.com',
                     'description' => 'Link A description',
                 ],
                 [
                     'type' => 'link',
                     'title' => 'Link B',
-                    'url' => 'http://b.sample.com',
-                    'description' => 'Link B description with <a href="http://somelink.sample.com">some link</a>',
+                    'url' => 'http://b.example.com',
+                    'description' => 'Link B description with [link](http://link.example.com)',
                 ],
             ],
         ];
@@ -67,19 +67,19 @@ class SchemaTest extends TestCase
                                         [
                                             'type' => 'link',
                                             'title' => 'Link A',
-                                            'url' => 'http://a.sample.com',
+                                            'url' => 'http://a.example.com',
                                             'description' => 'Link A description',
                                         ],
                                         [
                                             'type' => 'link',
                                             'title' => 'Link B',
-                                            'url' => 'http://b.sample.com',
-                                            'description' => 'Link B description with <a href="http://somelink.sample.com">some link</a>',
+                                            'url' => 'http://b.example.com',
+                                            'description' => 'Link B description with [link](http://link.example.com)',
                                             'children' => [
                                                 [
                                                     'type' => 'link',
                                                     'title' => 'Link C',
-                                                    'url' => 'http://c.sample.com',
+                                                    'url' => 'http://c.example.com',
                                                     'description' => 'Link C description',
                                                 ],
                                             ],
@@ -126,14 +126,14 @@ class SchemaTest extends TestCase
                         [
                             'type' => 'link',
                             'title' => 'Link A',
-                            'url' => 'http://a.sample.com',
+                            'url' => 'http://a.example.com',
                             'description' => 'Link A description',
                         ],
                         [
                             'type' => 'link',
                             'title' => 'Link B',
-                            'url' => 'http://b.sample.com',
-                            'description' => 'Link B description with <a href="http://somelink.sample.com">some link</a>',
+                            'url' => 'http://b.example.com',
+                            'description' => 'Link B description with [link](http://link.example.com)',
                         ],
                     ],
                 ],
@@ -156,8 +156,8 @@ class SchemaTest extends TestCase
                         [
                             'type' => 'link',
                             'title' => 'Link B',
-                            'url' => 'http://b.sample.com',
-                            'description' => 'Link B description with <a href="http://somelink.sample.com">some link</a>',
+                            'url' => 'http://b.example.com',
+                            'description' => 'Link B description with [link](http://link.example.com)',
                         ],
                     ],
                 ],
@@ -165,15 +165,15 @@ class SchemaTest extends TestCase
         ];
         $this->assertEquals(false, $this->validate($data));
 
-        // category node in link node
+        // category node inside link node
         $data = [
             'type' => 'category',
             'children' => [
                 [
                     'type' => 'link',
                     'title' => 'Link B',
-                    'url' => 'http://b.sample.com',
-                    'description' => 'Link B description with <a href="http://somelink.sample.com">some link</a>',
+                    'url' => 'http://b.example.com',
+                    'description' => 'Link B description with [link](http://link.example.com)',
                     'children' => [
                         'type' => 'category',
                         'title' => 'Some category',

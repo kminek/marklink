@@ -24,4 +24,8 @@ Vagrant.configure("2") do |config|
         echo "cd /vagrant" >> /home/ubuntu/.bashrc
     SHELL
 
+    config.vm.provision "shell", run: "always", inline: <<-SHELL
+        cd /vagrant && php -S 0.0.0.0:80 1> /dev/null 2> /dev/null &
+    SHELL
+
 end
