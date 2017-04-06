@@ -9,7 +9,7 @@ Vagrant.configure("2") do |config|
 
     config.vm.box_check_update = false
 
-    config.vm.network "private_network", ip: "192.168.10.10"
+    config.vm.network "private_network", ip: "192.168.10.11"
 
     config.vm.provision "shell", inline: <<-SHELL
         add-apt-repository ppa:ondrej/php

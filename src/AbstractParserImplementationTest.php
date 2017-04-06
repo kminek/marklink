@@ -1,31 +1,29 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Kminek\Marklink;
+namespace Kminek\Marklink;
 
 use PHPUnit\Framework\TestCase;
-use Kminek\Marklink\ParserService;
-use Kminek\Marklink\ParserInterface;
-use Kminek\Marklink\Exception;
 
 /**
- * Class ParserImplementationTest
- * @package Tests\Marklink
+ * Class AbstractParserImplementationTest
+ * @package Kminek\Marklink
  */
-class ParserImplementationTest extends TestCase
+abstract class AbstractParserImplementationTest extends TestCase
 {
     /**
+     * Parser
+     *
      * @var ParserInterface
      */
-    protected $parser;
+    public $parser;
 
     /**
+     * Create new parser
+     *
      * @return ParserInterface
      */
-    protected function createParser(): ParserInterface
-    {
-        return new ParserService;
-    }
+    abstract public function createParser(): ParserInterface;
 
     public function setUp(): void
     {
@@ -508,7 +506,7 @@ MARKDOWN;
 
     public function testInvalidHeadingsHierarchy(): void
     {
-        $this->expectException(Exception::class);
+        $this->expectException(ParserException::class);
         $markdown = <<<MARKDOWN
 ## Heading 2
 
@@ -517,9 +515,16 @@ MARKDOWN;
         $result = $this->parser->parse($markdown);
     }
 
+    public function testEmptyInput(): void
+    {
+        $this->expectException(ParserException::class);
+        $markdown = '';
+        $result = $this->parser->parse($markdown);
+    }
+
     public function testMixedChildren(): void
     {
-        $this->expectException(Exception::class);
+        $this->expectException(ParserException::class);
         $markdown = <<<MARKDOWN
 - Category A
 - [Link A](http://a.example.com) - Link A description

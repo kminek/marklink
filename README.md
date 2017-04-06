@@ -6,8 +6,9 @@ Marklink
 A simple standard allowing embedding (and parsing) categorized lists of links
 inside [Markdown](https://en.wikipedia.org/wiki/Markdown) files.
 
-Marklink was born as an attempt to standardize various [awesome lists
-of links](https://github.com/sindresorhus/awesome) available on GitHub.
+Marklink was born as an attempt to standardize various
+[awesome lists of links](https://github.com/sindresorhus/awesome) available on
+GitHub.
 
 Schema
 ------
@@ -41,8 +42,8 @@ for reference).
 Examples
 --------
 
-Here are examples how Markdown fragments are parsed by Marklink parser into
-JSON data.
+Here are some examples how Markdown fragments are parsed by Marklink parser into
+JSON data (see `src/AbstractParserImplementationTest.php` for more).
 
 ### Basic example
 
@@ -146,8 +147,12 @@ Output:
 By default Marklink parser will parse whole document unless it finds
 following markers:
 
-`<!-- marklink:start -->`
-`<!-- marklink:end -->`
+```markdown
+<!-- marklink:start -->
+- [Link A](http://a.example.com) - Link A description
+- [Link B](http://b.example.com) - Link B description with [link](http://link.example.com)
+<!-- marklink:end -->
+```
 
 In that case only content between markers will be parsed.
 

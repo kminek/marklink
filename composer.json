@@ -2,7 +2,8 @@
     "name": "kminek/marklink",
     "description": "A simple standard allowing embedding (and parsing) categorized lists of links inside Markdown files.",
     "require": {
-        "php": ">=7.1.0"
+        "php": ">=7.1.0",
+        "guzzlehttp/guzzle": "6.*"
     },
     "require-dev": {
         "justinrainbow/json-schema": "5.2.*",

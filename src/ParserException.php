@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace Kminek\Marklink;
 
-use Exception as BaseException;
+use Exception;
 
 /**
- * Class Exception
+ * Class ParserException
  * @package Kminek\Marklink
  */
-class Exception extends BaseException
+class ParserException extends Exception
 {
 }
