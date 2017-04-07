@@ -156,6 +156,34 @@ following markers:
 
 In that case only content between markers will be parsed.
 
-## Todo
+## Online Marklink parsing service
 
-- implement online parsing service
+Initial Markling parser implementation is available as a service.
+
+### cURL example
+
+```bash
+curl --request POST \
+  --url http://awesomelist.kminek.pl/api/marklink/parse \
+  --header 'cache-control: no-cache' \
+  --header 'content-type: application/json' \
+  --data '{"markdown": "- [Link A](http://a.example.com) - Link A description\n- [Link B](http://b.example.com) - Link B description with [link](http://link.example.com)"}'
+```
+
+### PHP example
+
+```bash
+composer require kminek/marklink
+```
+
+```php
+use Kminek\Marklink\ParserService;
+
+$markdown = <<<MARKDOWN
+- [Link A](http://a.example.com) - Link A description
+- [Link B](http://b.example.com) - Link B description with [link](http://link.example.com)
+MARKDOWN;
+
+$parser = new ParserService;
+$result = $parser->parse($markdown);
+```
