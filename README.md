@@ -16,7 +16,7 @@ Schema
 Every Markdown document with embedded well-formed Marklink sections can be
 parsed by Marklink parser into tree-like [JSON](https://en.wikipedia.org/wiki/JSON)
 structure with categories and links. This JSON data structure is described by
-schema file (see `marklink.schema.json` in this repo for reference). Schema
+schema file (see [marklink.schema.json](https://raw.githubusercontent.com/kminek/marklink/master/marklink.schema.json) for reference). Schema
 file allows JSON structure to be validated (see [JSON Schema](http://json-schema.org/)
 for reference).
 
@@ -43,7 +43,7 @@ Examples
 --------
 
 Here are some examples how Markdown fragments are parsed by Marklink parser into
-JSON data (see `src/AbstractParserImplementationTest.php` for more).
+JSON data (see [AbstractParserImplementationTest.php](https://raw.githubusercontent.com/kminek/marklink/master/src/AbstractParserImplementationTest.php) for more).
 
 ### Basic example
 
@@ -159,6 +159,10 @@ In that case only content between markers will be parsed.
 ## Online Marklink parsing service
 
 Initial Markling parser implementation is available as a service.
+
+### Web interface
+
+[http://awesomelist.kminek.pl/marklink](http://awesomelist.kminek.pl/marklink)
 
 ### cURL example
 
