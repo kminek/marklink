@@ -1,34 +1,24 @@
 <?php
+
 declare(strict_types=1);
+
+/*
+ * This file is part of the `kminek/marklink` codebase.
+ */
 
 namespace Kminek\Marklink;
 
-use PHPUnit\Framework\TestCase;
-
 /**
- * Class AbstractParserImplementationTest
- * @package Kminek\Marklink
+ * Trait ParserTestTrait.
  */
-abstract class AbstractParserImplementationTest extends TestCase
+trait ParserTestTrait
 {
     /**
-     * Parser
+     * Parser.
      *
      * @var ParserInterface
      */
     public $parser;
-
-    /**
-     * Create new parser
-     *
-     * @return ParserInterface
-     */
-    abstract public function createParser(): ParserInterface;
-
-    public function setUp(): void
-    {
-        $this->parser = $this->createParser();
-    }
 
     public function testSingleList(): void
     {
@@ -452,7 +442,7 @@ MARKDOWN;
                         [
                             'type' => 'category',
                             'title' => 'Heading 2',
-                        ]
+                        ],
                     ],
                 ],
                 [

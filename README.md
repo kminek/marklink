@@ -43,7 +43,7 @@ Examples
 --------
 
 Here are some examples how Markdown fragments are parsed by Marklink parser into
-JSON data (see [AbstractParserImplementationTest.php](https://raw.githubusercontent.com/kminek/marklink/master/src/AbstractParserImplementationTest.php) for more).
+JSON data (see `tests/` directory for more).
 
 ### Basic example
 
@@ -162,16 +162,16 @@ Initial Markling parser implementation is available as a service.
 
 ### Web interface
 
-[http://awesomelist.kminek.pl/marklink](http://awesomelist.kminek.pl/marklink)
+[https://awesomelist.kminek.pl/marklink](https://awesomelist.kminek.pl/marklink)
 
 ### cURL example
 
 ```bash
 curl --request POST \
-  --url http://awesomelist.kminek.pl/api/marklink/parse \
+  --url https://awesomelist.kminek.pl/api/markdown \
   --header 'cache-control: no-cache' \
   --header 'content-type: application/json' \
-  --data '{"markdown": "- [Link A](http://a.example.com) - Link A description\n- [Link B](http://b.example.com) - Link B description with [link](http://link.example.com)"}'
+  --data '{"input": "- [Link A](http://a.example.com) - Link A description\n- [Link B](http://b.example.com) - Link B description with [link](http://link.example.com)"}'
 ```
 
 ### PHP example

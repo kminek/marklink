@@ -2,12 +2,18 @@
     "name": "kminek/marklink",
     "description": "A simple standard allowing embedding (and parsing) categorized lists of links inside Markdown files.",
     "require": {
-        "php": ">=7.1.0",
-        "guzzlehttp/guzzle": "6.*"
+        "php": ">=8.0.0",
+        "ext-json": "*",
+        "doctrine/collections": "1.6.7",
+        "guzzlehttp/guzzle": "7.2.*",
+        "league/commonmark": "1.5.7"
     },
     "require-dev": {
-        "justinrainbow/json-schema": "5.2.*",
-        "phpunit/phpunit": "6.0.*"
+        "friendsofphp/php-cs-fixer": "2.18.3",
+        "justinrainbow/json-schema": "5.2.10",
+        "phpstan/phpstan": "0.12.81",
+        "phpunit/phpunit": "9.5.2",
+        "symfony/var-dumper": "5.2.5"
     },
     "autoload": {
         "psr-4": {
@@ -18,5 +24,21 @@
         "psr-4": {
             "Tests\\Kminek\\Marklink\\": "tests/"
         }
+    },
+    "scripts": {
+        "cs": [
+            "php-cs-fixer fix --verbose"
+        ],
+        "sa": [
+            "phpstan analyse src tests --level=max --memory-limit=256M"
+        ],
+        "test": [
+            "phpunit"
+        ]
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "optimize-autoloader": true
     }
 }

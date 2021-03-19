@@ -1,13 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Kminek\Marklink;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Exception\ServerException;
-use Exception;
+use Throwable;
 
 /**
  * Class ParserService
@@ -28,7 +27,7 @@ class ParserService implements ParserInterface
     public function __construct(ClientInterface $httpClient = null)
     {
         $options = [
-            'base_uri' => 'http://awesomelist.kminek.pl/api/',
+            'base_uri' => 'https://awesomelist.kminek.pl/api/',
             'timeout' => 10,
             'http_errors' => true,
         ];
@@ -40,27 +39,22 @@ class ParserService implements ParserInterface
      */
     public function parse(string $markdown): array
     {
-        $request = new Request('POST', 'marklink/parse');
-        $requestBody = \GuzzleHttp\Psr7\stream_for(json_encode([
-            'markdown' => $markdown,
-        ]));
-        $request = $request->withBody($requestBody);
         try {
-            $response = $this->httpClient->send($request);
-            $responseBody = (string) $response->getBody();
-            $result = json_decode($responseBody, true);
+            $response = $this->httpClient->request('POST', 'markdown', [
+                'form_params' => [
+                    'input' => $markdown,
+                ]
+            ]);
+            $responseBody = (string)$response->getBody();
+            $result = json_decode(
+                $responseBody,
+                true,
+                512,
+                JSON_THROW_ON_ERROR
+            );
             return $result;
-        } catch (ServerException $e) {
-            $responseBody = (string) $e->getResponse()->getBody();
-            $result = json_decode($responseBody, true);
-            if (!isset($result['error'])) {
-                throw $e;
-            }
-            $e = ($result['error']['type'] === ParserException::class) ?
-                new ParserException($result['error']['message'], (int) $result['error']['code']) :
-                new Exception($result['error']['message'], (int) $result['error']['code'])
-            ;
-            throw $e;
+        } catch (Throwable $e) {
+            throw new ParserException($e->getMessage(), 0, $e);
         }
     }
 }

@@ -1,31 +1,47 @@
 <?php
+
 declare(strict_types=1);
+
+/*
+ * This file is part of the `kminek/marklink` codebase.
+ */
 
 namespace Tests\Kminek\Marklink;
 
-use PHPUnit\Framework\TestCase;
+use Exception;
+use JsonException;
 use JsonSchema\Validator;
+use PHPUnit\Framework\TestCase;
 
 /**
- * Class SchemaTest
- * @package Tests\Marklink
+ * Class SchemaTest.
  */
 class SchemaTest extends TestCase
 {
+    /**
+     * @param array<string, mixed> $data
+     *
+     * @throws JsonException
+     */
     protected function validate(array $data): bool
     {
-        $data = json_decode(json_encode($data));
-        $schema = json_decode(file_get_contents(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'marklink.schema.json'));
-        $validator = new Validator;
+        $data = json_decode(json_encode($data, JSON_THROW_ON_ERROR));
+        $file = file_get_contents(dirname(__DIR__).DIRECTORY_SEPARATOR.'marklink.schema.json');
+        if (false === $file) {
+            throw new Exception('Unable to read file');
+        }
+        $schema = json_decode($file, false, 512, JSON_THROW_ON_ERROR);
+        $validator = new Validator();
         $validator->validate($data, $schema);
         $isValid = $validator->isValid();
         if (!$isValid) {
             // var_dump($validator->getErrors());
         }
+
         return $isValid;
     }
 
-    public function testValidJSON()
+    public function testValidJSON(): void
     {
         // simple example
         $data = [
@@ -95,7 +111,7 @@ class SchemaTest extends TestCase
         $this->assertEquals(true, $this->validate($data));
     }
 
-    public function testInvalidJSON()
+    public function testInvalidJSON(): void
     {
         // invalid root node
         $data = [
@@ -151,7 +167,7 @@ class SchemaTest extends TestCase
                     'children' => [
                         [
                             'type' => 'category',
-                            'title' => 'Other category'
+                            'title' => 'Other category',
                         ],
                         [
                             'type' => 'link',
